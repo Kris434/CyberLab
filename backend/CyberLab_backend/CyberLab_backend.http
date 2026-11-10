@@ -4,3 +4,6 @@ GET {{CyberLab_backend_HostAddress}}/api/health
 Accept: application/json
 
 ###
+
+GET {{CyberLab_backend_HostAddress}}/api/database/health
+Accept: application/json
