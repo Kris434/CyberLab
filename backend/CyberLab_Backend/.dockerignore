@@ -23,3 +23,31 @@
 **/values.dev.yaml
 LICENSE
 README.md
+
+# ==========================================
+# Additional CyberLab security rules
+# ==========================================
+
+# Environment variables
+**/.env.*
+**/secrets/
+**/secrets.json
+
+# Certificates and private keys
+**/*.pem
+**/*.key
+**/*.pfx
+**/*.p12
+
+# Local ASP.NET configuration
+**/appsettings.Local.json
+**/appsettings.*.local.json
+
+# Local databases and backups
+**/*.sqlite
+**/*.sqlite3
+**/*.bak
+**/*.dump
+
+# Logs
+**/*.log
