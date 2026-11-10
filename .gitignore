@@ -1,2 +1,221 @@
+
+# ==============================================
+# CYBERLAB - GLOBAL .GITIGNORE
+# ASP.NET Core / React / PostgreSQL / Docker
+# ==============================================
+
+
+# ==============================================
+# 1. SECRETS AND ENVIRONMENT VARIABLES
+# ==============================================
+
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private credentials and certificates
+secrets/
+**/secrets/
+*.secret
+*.secrets
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Local ASP.NET configuration
+**/appsettings.Local.json
+**/appsettings.*.local.json
+**/secrets.json
+
+
+# ==============================================
+# 2. .NET / ASP.NET CORE
+# ==============================================
+
+# Build outputs
+**/bin/
+**/obj/
+**/publish/
+**/TestResults/
+
+# Generated NuGet packages
+*.nupkg
+*.snupkg
+**/packages/
+
+# Local user configuration
+*.user
+*.suo
+*.csproj.user
+*.sln.docstates
+*.rsuser
+
+# ReSharper / Rider cache
+_ReSharper*/
+*.DotSettings.user
+
+
+# ==============================================
+# 3. JETBRAINS RIDER
+# ==============================================
+
+.idea/
+**/.idea/
+
+*.sln.iml
+*.iml
+
+# Rider-specific local settings
+*.sln.DotSettings.user
+*.csproj.DotSettings.user
+
+
+# ==============================================
+# 4. VISUAL STUDIO / VS CODE
+# ==============================================
+
+.vs/
+**/.vs/
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+
+# ==============================================
+# 5. REACT / TYPESCRIPT / NODE.JS
+# ==============================================
+
+**/node_modules/
+**/dist/
+**/coverage/
+**/.vite/
+
+# Node logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Package manager caches
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+
+
+# ==============================================
+# 6. POSTGRESQL / DATABASE
+# ==============================================
+
+# Local database storage
+postgres_data/
+pgdata/
+
+# SQLite databases (if used for testing)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Database backups and dumps
+*.dump
+*.backup
+*.bak
+
+
+# ==============================================
+# 7. DOCKER
+# ==============================================
+
+# Local overrides
+compose.override.yaml
+compose.override.yml
+docker-compose.override.yml
+docker-compose.override.yaml
+
+compose.local.yaml
+compose.local.yml
+docker-compose.local.yml
+
+# Do not ignore:
+# Dockerfile
+# .dockerignore
+# compose.yaml
+
+
+# ==============================================
+# 8. LOGS / TEMPORARY FILES
+# ==============================================
+
+*.log
+logs/
+**/logs/
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Local caches
+.cache/
+tmp/
+temp/
+
+
+# ==============================================
+# 9. OPERATING SYSTEM
+# ==============================================
+
+# macOS
 .DS_Store
-.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*/
+
+
+# ==============================================
+# 10. TESTING AND COVERAGE
+# ==============================================
+
+**/TestResults/
+coverage/
+coverage-reports/
+
+*.coverage
+*.coveragexml
+*.trx
+
+
+# ==============================================
+# 11. LOCAL DEVELOPMENT FILES
+# ==============================================
+
+*.local
+*.local.json
+
+# Editor backup files
+*.bak
+*.old
+*.backup
