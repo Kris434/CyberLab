@@ -10,18 +10,26 @@ WORKDIR /src
 
 # Copy project files
 COPY ["CyberLab_backend/CyberLab_backend.csproj", "CyberLab_backend/"]
-COPY ["Application/Application.csproj", "Application/"]
-COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+COPY ["CyberLab.Domain/CyberLab.Domain.csproj", "CyberLab.Domain/"]
+COPY ["CyberLab.Application/CyberLab.Application.csproj", "CyberLab.Application/"]
+COPY ["CyberLab.Infrastructure/CyberLab.Infrastructure.csproj", "CyberLab.Infrastructure/"]
 
 # Restore dependencies
 RUN dotnet restore "CyberLab_backend/CyberLab_backend.csproj"
 
-# Copy source code
+# Copy source files
 COPY . .
 
-# Publish application
-RUN dotnet publish "CyberLab_backend/CyberLab_backend.csproj" \
+# Build
+WORKDIR /src/CyberLab_backend
+RUN dotnet build "CyberLab_backend.csproj" \
+    -c $BUILD_CONFIGURATION \
+    -o /app/build \
+    --no-restore
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "CyberLab_backend.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
     --no-restore \
@@ -29,5 +37,5 @@ RUN dotnet publish "CyberLab_backend/CyberLab_backend.csproj" \
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CyberLab_backend.dll"]

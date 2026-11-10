@@ -1,0 +1,59 @@
+
+services:
+  database:
+    image: postgres:17
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Required}
+      POSTGRES_USER: ${POSTGRES_USER:?Required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Required}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    networks:
+      - cyberlab_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: CyberLab_backend/Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: 8080
+
+      ConnectionStrings__DefaultConnection: >-
+        Host=database;
+        Port=5432;
+        Database=${POSTGRES_DB:?Required};
+        Username=${POSTGRES_USER:?Required};
+        Password=${POSTGRES_PASSWORD:?Required}
+
+    depends_on:
+      database:
+        condition: service_healthy
+
+    networks:
+      - cyberlab_network
+
+volumes:
+  postgres_data:
+
+networks:
+  cyberlab_network:
+    driver: bridge
