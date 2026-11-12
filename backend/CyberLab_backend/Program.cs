@@ -1,3 +1,4 @@
+using Application.Services;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<UserService>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.MapControllers();
 
 if (app.Environment.IsDevelopment())
 {
@@ -29,26 +34,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapGet("/api/health", () =>
-    Results.Ok(new
-    {
-        Status = "Healthy",
-        Application = "CyberLab Backend"
-    }));
-
-app.MapGet("/api/database/health",
-    async (CyberLabDbContext dbContext) =>
-    {
-        bool connected = await dbContext.Database.CanConnectAsync();
-
-        return connected
-            ? Results.Ok(new
-            {
-                Status = "Connected",
-                Database = "PostgreSQL"
-            })
-            : Results.Problem("Database connection failed");
-    });
 
 app.Run();

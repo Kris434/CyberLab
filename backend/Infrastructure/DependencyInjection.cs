@@ -1,4 +1,6 @@
+using Application.Interfaces;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,8 @@ public static class DependencyInjection
 
         services.AddDbContext<CyberLabDbContext>(options =>
             options.UseNpgsql(connectionString));
+        
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
