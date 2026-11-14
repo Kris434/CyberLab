@@ -5,10 +5,15 @@ Accept: application/json
 
 ###
 
-GET {{CyberLab_backend_HostAddress}}/api/database/health
+GET {{CyberLab_backend_HostAddress}}/api/health/database
 Accept: application/json
 
 ###
 
 GET {{CyberLab_backend_HostAddress}}/api/Users
+Accept: application/json
+
+###
+
+GET {{CyberLab_backend_HostAddress}}/api/Products?search=Macbook
 Accept: application/json
