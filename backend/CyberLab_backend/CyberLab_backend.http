@@ -17,3 +17,18 @@ Accept: application/json
 
 GET {{CyberLab_backend_HostAddress}}/api/Products?search=Macbook
 Accept: application/json
+
+### SQL Injection API Enpoint - 1 result
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli?search=Mac
+Accept: application/json
+
+### SQL Injection API Enpoint - 0 results
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli?search=xyz
+Accept: application/json
+
+### SQL Injection API Enpoint - 0 results
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli?search=%27%20OR%201%3D1%20--
+Accept: application/json

@@ -1,3 +1,4 @@
+using Application.Scenarios.SqlInjection;
 using Application.Services;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -13,6 +14,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<SqlInjectionService>();
 
 builder.Services.AddControllers();
 
