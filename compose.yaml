@@ -25,6 +25,32 @@ services:
 
     networks:
       - cyberlab_network
+    
+  sqli-db:
+    image: postgres:17
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: cyberlab_sqli
+      POSTGRES_USER: sqli_owner
+      POSTGRES_PASSWORD: ${SQLI_DB_PASSWORD:?Required}
+      SQLI_READER_PASSWORD: ${SQLI_READER_PASSWORD:?Required}
+
+    volumes:
+      - sqli_data:/var/lib/postgresql/data
+      - ./database/sqli/init:/docker-entrypoint-initdb.d:ro
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    networks:
+      - cyberlab_network
+
 
   backend:
     build:
@@ -46,9 +72,13 @@ services:
         Database=${POSTGRES_DB:?Required};
         Username=${POSTGRES_USER:?Required};
         Password=${POSTGRES_PASSWORD:?Required}
+        
+      ConnectionStrings__SqlInjectionDemo: "Host=sqli-db;Port=5432;Database=cyberlab_sqli;Username=sqli_reader;Password=${SQLI_READER_PASSWORD:?Required}"
 
     depends_on:
       database:
+        condition: service_healthy
+      sqli-db:
         condition: service_healthy
 
     networks:
@@ -56,6 +86,7 @@ services:
 
 volumes:
   postgres_data:
+  sqli_data:
 
 networks:
   cyberlab_network:

@@ -17,3 +17,23 @@ Accept: application/json
 
 GET {{CyberLab_backend_HostAddress}}/api/Products?search=Macbook
 Accept: application/json
+
+### SQL Injection API Enpoint - secure normal search
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli/secure?search=Lap
+Accept: application/json
+
+### SQL Injection API Enpoint - vulnerable normal search
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli/vulnerable?search=Lap
+Accept: application/json
+
+### SQL Injection API Enpoint - secure SQL Injection attempt
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli/secure?search=%27%20OR%201%3D1%20--
+Accept: application/json
+
+### SQL Injection API Enpoint - vulnerable SQL Injection attempt
+
+GET {{CyberLab_backend_HostAddress}}/api/sqli/vulnerable?search=%27%20OR%201%3D1%20--
+Accept: application/json

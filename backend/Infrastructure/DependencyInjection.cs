@@ -1,6 +1,8 @@
 using Application.Interfaces;
+using Application.Scenarios.SqlInjection.Interfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
+using Infrastructure.Scenarios.SqlInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,7 @@ public static class DependencyInjection
         
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ISqlInjectionRepository, SqlInjectionRepository>();
 
         return services;
     }
